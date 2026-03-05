@@ -3,9 +3,7 @@ import { createServerClient } from "@supabase/ssr";
 
 export default async function Auth(req: NextRequest) {
   const response = NextResponse.next({
-    request: {
-      headers: req.headers,
-    },
+    request: { headers: req.headers },
   });
 
   const supabase = createServerClient(
@@ -13,30 +11,24 @@ export default async function Auth(req: NextRequest) {
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
     {
       cookies: {
-        get(name: string) {
+        get(name) {
           return req.cookies.get(name)?.value;
         },
-        set(name: string, value: string, options: any) {
-          response.cookies.set({
-            name,
-            value,
-            ...options,
-          });
+        set(name, value, options) {
+          response.cookies.set({ name, value, ...options });
         },
-        remove(name: string, options: any) {
-          response.cookies.set({
-            name,
-            value: "",
-            ...options,
-          });
+        remove(name, options) {
+          response.cookies.set({ name, value: "", ...options });
         },
       },
     },
   );
 
   const {
-    data: { user },
-  } = await supabase.auth.getUser();
+    data: { session },
+  } = await supabase.auth.getSession();
+
+  const user = session?.user;
 
   const { pathname } = req.nextUrl;
 

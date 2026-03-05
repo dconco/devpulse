@@ -21,7 +21,12 @@ export default function LoginForm() {
   };
 
   const handleOAuthSignIn = async () => {
-    await supabase.auth.signInWithOAuth({ provider: "github" });
+    await supabase.auth.signInWithOAuth({
+      provider: "github",
+      options: {
+        redirectTo: `${location.origin}/api/auth/callback`,
+      },
+    });
   };
 
   const handleCaptchaVerify = async (token: string) => {
@@ -33,7 +38,7 @@ export default function LoginForm() {
         const { data, error } = await supabase.auth.signInWithPassword({
           email,
           password,
-          options: { captchaToken: token},
+          options: { captchaToken: token },
         });
 
         if (error) return reject(error);

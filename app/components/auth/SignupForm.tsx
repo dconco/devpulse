@@ -20,7 +20,12 @@ export default function AuthPage() {
   };
 
   const handleOAuthSignUp = async () => {
-    await supabase.auth.signInWithOAuth({ provider: "github" });
+    await supabase.auth.signInWithOAuth({
+      provider: "github",
+      options: {
+        redirectTo: `${location.origin}/api/auth/callback`,
+      },
+    });
   };
 
   const handleCaptchaVerify = async (token: string) => {
