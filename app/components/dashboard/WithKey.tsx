@@ -12,6 +12,13 @@ export default function DashboardWithKey({ email }: { email: string }) {
   const [joinCode, setJoinCode] = useState("");
 
   const createLeaderboard = async () => {
+    if (leaderboardName.trim().length === 0)
+      return toast.error("Please enter a leaderboard name.");
+    if (leaderboardName.trim().length < 3)
+      return toast.error("Leaderboard name must be at least 3 characters.");
+    if (leaderboardName.length > 50)
+      return toast.error("Leaderboard name must be under 50 characters.");
+
     const createLeaderboard = new Promise(async (resolve, reject) => {
       try {
         const { data: userData } = await supabase.auth.getUser();
@@ -71,6 +78,11 @@ export default function DashboardWithKey({ email }: { email: string }) {
   };
 
   const joinLeaderboard = async () => {
+    if (joinCode.trim().length === 0)
+      return toast.error("Please enter a join code.");
+    if (joinCode.trim().length !== 8)
+      return toast.error("Join code must be 8 characters long.");
+
     const joinLeaderboard = new Promise(async (resolve, reject) => {
       try {
         const { data: userData } = await supabase.auth.getUser();
@@ -119,72 +131,73 @@ export default function DashboardWithKey({ email }: { email: string }) {
   };
 
   return (
-    <div className="w-full max-w-lg bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl shadow-2xl p-10">
-      <div className="flex flex-column mb-8">
+    <div className="w-full bg-white/[0.04] backdrop-blur-xl border border-white/10 rounded-2xl shadow-xl p-8">
+      <div className="flex items-center justify-between mb-8">
         <div>
-          <h2 className="text-3xl font-bold tracking-tight">Welcome back</h2>
-          <p className="text-gray-400 mt-2 text-sm">
+          <h2 className="text-2xl font-semibold tracking-tight">
+            Welcome back
+          </h2>
+          <p className="text-gray-400 text-sm mt-1">
             Logged in as <span className="text-indigo-400">{email}</span>
           </p>
         </div>
+
         <Link
           href="/logout"
-          className="ml-auto text-sm text-gray-400 hover:text-gray-300"
+          className="text-sm text-gray-400 hover:text-white transition"
         >
           Logout
         </Link>
       </div>
 
-      <div className="mb-8">
-        <h3 className="text-lg font-semibold mb-3 text-indigo-400">
+      {/* Create Leaderboard */}
+      <div className="space-y-4 mb-8">
+        <h3 className="text-sm font-semibold text-indigo-400 uppercase tracking-wide">
           Create Leaderboard
         </h3>
 
         <input
-          placeholder="Enter leaderboard name"
-          className="w-full p-3 rounded-xl bg-black/40 border border-gray-700
-                       focus:outline-none focus:ring-2 focus:ring-indigo-500
-                       transition mb-4"
+          placeholder="Leaderboard name"
+          className="w-full h-11 px-4 rounded-lg bg-black/40 border border-gray-700
+          focus:outline-none focus:ring-2 focus:ring-indigo-500 transition"
           onChange={(e) => setLeaderboardName(e.target.value)}
         />
 
         <button
           onClick={createLeaderboard}
-          className="w-full py-3 rounded-xl font-semibold
-                       bg-gradient-to-r from-indigo-500 to-purple-600
-                       hover:scale-[1.02] transition-transform duration-200
-                       shadow-lg"
+          className="w-full h-11 rounded-lg font-medium
+          bg-gradient-to-r from-indigo-500 to-purple-600
+          hover:brightness-110 transition shadow-md"
         >
-          Create Leaderboard
+          Create
         </button>
       </div>
 
-      <div className="flex items-center gap-4 my-8">
-        <div className="flex-1 h-px bg-gray-700" />
-        <span className="text-gray-500 text-sm">OR</span>
-        <div className="flex-1 h-px bg-gray-700" />
+      <div className="flex items-center gap-4 my-6">
+        <div className="flex-1 h-px bg-gray-800" />
+        <span className="text-gray-500 text-xs uppercase">or</span>
+        <div className="flex-1 h-px bg-gray-800" />
       </div>
 
-      <div>
-        <h3 className="text-lg font-semibold mb-3 text-purple-400">
+      {/* Join */}
+      <div className="space-y-4">
+        <h3 className="text-sm font-semibold text-purple-400 uppercase tracking-wide">
           Join Leaderboard
         </h3>
 
         <input
-          placeholder="Enter join code"
-          className="w-full p-3 rounded-xl bg-black/40 border border-gray-700
-                       focus:outline-none focus:ring-2 focus:ring-purple-500
-                       transition mb-4"
+          placeholder="Join code"
+          className="w-full h-11 px-4 rounded-lg bg-black/40 border border-gray-700
+          focus:outline-none focus:ring-2 focus:ring-purple-500 transition"
           onChange={(e) => setJoinCode(e.target.value)}
         />
 
         <button
           onClick={joinLeaderboard}
-          className="w-full py-3 rounded-xl font-semibold
-                       bg-gray-800 hover:bg-gray-700
-                       transition duration-200 shadow"
+          className="w-full h-11 rounded-lg font-medium
+          bg-gray-800 hover:bg-gray-700 transition"
         >
-          Join Leaderboard
+          Join
         </button>
       </div>
     </div>

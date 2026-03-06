@@ -25,14 +25,16 @@ export default async function Dashboard() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-indigo-950 to-black text-white p-5 md:p-10">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-3 max-w-6xl mx-auto mb-8">
-        <DashboardWithKey email={profile?.email || user.email!} />
-        <LeaderboardsList />
-      </div>
+    <div className="min-h-screen bg-gradient-to-br from-gray-950 via-indigo-950 to-black text-white">
+      <div className="max-w-7xl mx-auto px-2 md:px-6 lg:px-10 py-2 md:py-6 lg:py-10 space-y-3 md:space-y-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 md:gap-8 items-start">
+          <DashboardWithKey email={profile?.email || user.email!} />
+          <LeaderboardsList />
+        </div>
 
-      <div className="max-w-6xl mx-auto flex justify-center">
-        <Stats />
+        <div className="w-full">
+          <Stats />
+        </div>
       </div>
     </div>
   );

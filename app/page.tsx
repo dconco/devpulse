@@ -12,16 +12,24 @@ export default async function Home() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-950 via-indigo-950 to-black text-white overflow-hidden">
-      <section className="min-h-screen flex flex-col items-center justify-center relative max-w-6xl mx-auto px-6 pt-28 pb-32 text-center">
+      <section className="min-h-screen flex flex-col items-center justify-center relative max-w-6xl mx-auto px-2 pt-28 pb-32 text-center">
         <div className="absolute inset-0 -z-10 flex justify-center">
           <div className="w-[600px] h-[600px] bg-purple-600/20 blur-[160px] rounded-full" />
         </div>
 
-        <h1 className="text-6xl md:text-7xl font-extrabold tracking-tight bg-gradient-to-r from-indigo-400 via-purple-500 to-pink-500 text-transparent bg-clip-text">
+        <h1
+          className="text-6xl md:text-7xl font-extrabold tracking-tight bg-gradient-to-r from-indigo-400 via-purple-500 to-pink-500 text-transparent bg-clip-text"
+          data-aos="fade-up"
+          data-aos-delay="100"
+        >
           DevPulse
         </h1>
 
-        <p className="mt-6 text-lg md:text-xl text-gray-300 max-w-2xl mx-auto">
+        <p
+          className="mt-6 text-lg md:text-xl text-gray-300 max-w-2xl mx-auto"
+          data-aos="fade-up"
+          data-aos-delay="200"
+        >
           Turn your coding activity into competitive leaderboards. Track
           productivity, motivate your team, and visualize real coding impact
           using WakaTime insights.
@@ -31,6 +39,8 @@ export default async function Home() {
           <Link
             href="/signup"
             className="px-10 py-4 rounded-xl bg-gradient-to-r from-indigo-500 to-purple-500 font-semibold shadow-xl hover:scale-105 transition"
+            data-aos="fade-up"
+            data-aos-delay="300"
           >
             Get Started
           </Link>
@@ -38,13 +48,15 @@ export default async function Home() {
           <Link
             href="/login"
             className="px-10 py-4 rounded-xl border border-white/20 hover:bg-white/10 transition"
+            data-aos="fade-up"
+            data-aos-delay="400"
           >
             Login
           </Link>
         </div>
       </section>
 
-      <section className="max-w-6xl mx-auto px-6 pb-28 grid grid-cols-1 md:grid-cols-3 gap-8">
+      <section className="max-w-6xl mx-auto px-2 pb-28 grid grid-cols-1 md:grid-cols-3 gap-8">
         <Feature
           color="text-indigo-400"
           title="Private & Public Boards"
@@ -64,28 +76,34 @@ export default async function Home() {
         />
       </section>
 
-      <section className="max-w-4xl mx-auto px-6 pb-5 text-center">
+      <section className="max-w-4xl mx-auto px-2 pb-5 text-center">
         <div className="bg-white/5 backdrop-blur-md border border-white/10 rounded-3xl p-12">
-          <h2 className="text-3xl font-bold mb-4">
+          <h2 className="text-3xl font-bold mb-4" data-aos="fade-up">
             Ready to track your coding productivity?
           </h2>
 
-          <p className="text-gray-400 mb-8">
+          <p
+            className="text-gray-400 mb-8"
+            data-aos="fade-up"
+            data-aos-delay="100"
+          >
             Join developers and teams competing on DevPulse.
           </p>
 
           <Link
             href="/signup"
-            className="px-10 py-4 rounded-xl bg-gradient-to-r from-indigo-500 to-purple-500 font-semibold hover:scale-105 transition"
+            className="px-2 py-4  rounded-xl bg-gradient-to-r from-indigo-500 to-purple-500 font-semibold hover:scale-105 transition"
+            data-aos="fade-up"
+            data-aos-delay="200"
           >
             Create Free Account
           </Link>
         </div>
       </section>
 
-      <section className="max-w-4xl mx-auto px-6 text-center">
+      <section className="max-w-4xl mx-auto px-2 text-center">
         <div className="p-12 bg-indigo-500/20 rounded-2xl shadow-md border border-white/10">
-          <h2 className="text-3xl font-bold mb-6 text-white">
+          <h2 className="text-3xl font-bold mb-6 text-white" data-aos="fade-up">
             Recently Created Leaderboards
           </h2>
 
@@ -95,8 +113,14 @@ export default async function Home() {
                 key={board.id}
                 href={`/leaderboard/${board.slug}`}
                 className="bg-white/10 hover:bg-white/20 transition-colors rounded-lg px-6 py-3 text-left flex justify-between items-center"
+                data-aos="fade-up"
+                data-aos-delay="100"
               >
-                <span className="text-white font-medium hover:underline">
+                <span
+                  className="text-white font-medium hover:underline"
+                  data-aos="fade-up"
+                  data-aos-delay="100"
+                >
                   {board.name}
                 </span>
                 <span className="text-gray-400 text-sm">View →</span>
@@ -144,7 +168,10 @@ function Feature({
   color: string;
 }) {
   return (
-    <div className="group bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-8 transition hover:bg-white/10 hover:scale-[1.02]">
+    <div
+      className="group bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-8 transition hover:bg-white/10 hover:scale-[1.02]"
+      data-aos="fade-up"
+    >
       <h3 className={`text-xl font-semibold mb-3 ${color}`}>{title}</h3>
 
       <p className="text-gray-400">{description}</p>

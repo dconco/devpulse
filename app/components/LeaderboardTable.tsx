@@ -89,35 +89,41 @@ export default function LeaderboardTable({ members }: { members: Member[] }) {
     <div>
       <LeaderboardStats members={members} />
 
-      <div className="bg-white/5 rounded-2xl border border-white/10 overflow-hidden">
-        <table className="w-full text-left">
-          <thead className="bg-white/5 text-gray-400">
-            <tr>
-              <th className="p-4">Rank</th>
-              <th className="p-4">Developer</th>
-              <th className="p-4">Hours</th>
-              <th className="p-4">Languages</th>
-              <th className="p-4">OS</th>
-              <th className="p-4">Editor</th>
-            </tr>
-          </thead>
+      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {ranked.map((user) => (
+          <div
+            key={user.email}
+            className="bg-white/5 border border-white/10 rounded-2xl p-5
+            hover:bg-white/10 transition"
+          >
+            <div className="flex justify-between items-center mb-3">
+              <span className="text-lg font-bold text-indigo-400">
+                #{user.rank}
+              </span>
 
-          <tbody>
-            {ranked.map((user) => (
-              <tr
-                key={user.email}
-                className="border-t border-white/10 hover:bg-white/5"
-              >
-                <td className="p-4 font-bold">#{user.rank}</td>
-                <td className="p-4">{user.email}</td>
-                <td className="p-4">{user.hours} hrs</td>
-                <td className="p-4">{user.languages}</td>
-                <td className="p-4">{user.os}</td>
-                <td className="p-4">{user.editor}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+              <span className="text-sm text-gray-400">{user.hours} hrs</span>
+            </div>
+
+            <p className="font-semibold text-white mb-4 truncate">
+              {user.email}
+            </p>
+
+            <div className="space-y-1 text-sm text-gray-300">
+              <p>
+                <span className="text-gray-400">Languages:</span>{" "}
+                {user.languages.length > 0 ? user.languages : "N/A"}
+              </p>
+
+              <p>
+                <span className="text-gray-400">OS:</span> {user.os}
+              </p>
+
+              <p>
+                <span className="text-gray-400">Editor:</span> {user.editor}
+              </p>
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   );

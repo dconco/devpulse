@@ -133,8 +133,8 @@ export default function AuthPage() {
       </form>
 
       {showCaptcha && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black/60 z-50">
-          <div className="bg-gray-900 p-6 rounded-xl shadow-xl text-center">
+        <div className="fixed inset-0 flex items-center justify-center bg-black/60 z-50 rounded-3xl">
+          <div className="bg-gray-900 p-6 shadow-xl text-center">
             <h2 className="text-lg font-semibold mb-4">Verify you are human</h2>
 
             <HCaptcha
