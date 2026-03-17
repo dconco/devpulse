@@ -5,13 +5,14 @@ import RateLimiter from "./app/lib/proxy/rate-limiter";
 
 const env = process.env.NODE_ENV;
 
+// headless → rate limit → auth; only return when we block or redirect
 export async function proxy(req: NextRequest) {
   const headlessResponse = headlessBrowserCheck(req);
   if (headlessResponse) return headlessResponse;
 
   if (env === "production") {
-    const rateLimiter = RateLimiter(req);
-    if (rateLimiter) return rateLimiter;
+    const rateLimitResponse = RateLimiter(req);
+    if (rateLimitResponse) return rateLimitResponse;
   }
 
   const authResponse = await auth(req);

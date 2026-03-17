@@ -1,17 +1,20 @@
 import { NextResponse } from "next/server";
 
-export default function HeadlessBrowserCheck(req: Request) {
-  const ua = req.headers.get("user-agent") || "";
-  const headlessPatterns = [
-    "HeadlessChrome",
-    "PhantomJS",
-    "SlimerJS",
-    "Puppeteer",
-    "Playwright",
-    "Chrome-Lighthouse",
-  ];
+const HEADLESS_PATTERNS = [
+  "HeadlessChrome",
+  "PhantomJS",
+  "SlimerJS",
+  "Puppeteer",
+  "Playwright",
+  "Chrome-Lighthouse",
+] as const;
 
-  const isHeadless = headlessPatterns.some((p) =>
+// block bots, pass through real browsers
+export default function HeadlessBrowserCheck(
+  req: Request,
+): NextResponse | undefined {
+  const ua = req.headers.get("user-agent") ?? "";
+  const isHeadless = HEADLESS_PATTERNS.some((p) =>
     ua.toLowerCase().includes(p.toLowerCase()),
   );
 
@@ -24,4 +27,6 @@ export default function HeadlessBrowserCheck(req: Request) {
       },
     );
   }
+
+  return undefined;
 }
