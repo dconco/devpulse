@@ -71,7 +71,6 @@ export default function Stats() {
     if (!syncing) {
       setTimeout(() => {
         AOS.refresh();
-        setBarMounted(true);
       }, 200);
       
       // Trigger progress bar animation shortly after mounting/syncing
@@ -248,8 +247,8 @@ export default function Stats() {
                   className="mt-3 h-1 rounded-full bg-white/5 overflow-hidden cursor-pointer"
                   role="button"
                   onClick={() => {
-                    setBarMounted(false);
-                    setTimeout(() => setBarMounted(true), 10);
+                    setAnimated(false);
+                    setTimeout(() => setAnimated(true), 10);
                   }}
                 >
                   <div
