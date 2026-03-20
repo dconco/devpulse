@@ -21,7 +21,7 @@ export default async function Login(props: {
   return (
     <div className="min-h-screen flex bg-[#0a0a1a] text-white">
       {/* Left Side - Visual / Branding */}
-      <div className="hidden lg:flex lg:w-1/2 relative flex-col justify-between p-12 md:p-16 xl:p-24 border-r border-white/5 bg-gradient-to-br from-[#0a0a1a] to-[#0a0a1a] overflow-hidden">
+      <div className="hidden lg:flex lg:w-1/2 relative flex-col justify-between p-12 md:p-16 xl:p-24 border-r border-white/5 bg-linear-to-br from-[#0a0a1a] to-[#0a0a1a] overflow-hidden">
         {/* Background elements */}
         <div className="absolute inset-0 grid-bg opacity-30" />
 
@@ -33,7 +33,7 @@ export default async function Login(props: {
         </div>
 
         <div className="relative z-10 max-w-md">
-          <h1 className="text-4xl font-extrabold mb-5 leading-tight text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-400">
+          <h1 className="text-4xl font-extrabold mb-5 leading-tight text-transparent bg-clip-text bg-linear-to-r from-white to-gray-400">
             Welcome back to your dashboard.
           </h1>
           <p className="text-gray-400 text-lg leading-relaxed mb-8">

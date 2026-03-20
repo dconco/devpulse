@@ -110,7 +110,7 @@ export default function LeaderboardHeader({
             />
 
             <textarea
-              className="input-field mb-4 min-h-[80px] resize-none"
+              className="input-field mb-4 min-h-20 resize-none"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               placeholder="Description (optional)"

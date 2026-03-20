@@ -4,6 +4,7 @@ import LeaderboardHeader from "@/app/components/leaderboard/Header";
 import BackButton from "@/app/components/leaderboard/BackButton";
 import Footer from "@/app/components/layout/Footer";
 import CTA from "@/app/components/layout/CTA";
+import { Member } from "@/app/types/LeaderboardMember";
 
 export default async function LeaderboardPage(props: {
   params: Promise<{ slug: string }>;
@@ -28,7 +29,7 @@ export default async function LeaderboardPage(props: {
     );
   }
 
-  const { data: members, error } = await supabase
+  const { data: members, error }: { data: Member[] | null; error: any } = await supabase
     .from("leaderboard_members_view")
     .select("*")
     .eq("leaderboard_id", leaderboard.id);

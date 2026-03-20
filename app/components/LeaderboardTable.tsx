@@ -1,15 +1,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClock, faCode, faTerminal, faServer, faBolt, faFire, faStar, faRocket } from "@fortawesome/free-solid-svg-icons";
+import { Member } from "@/app/types/LeaderboardMember";
 
-type Member = {
-  user_id: string;
-  role: string;
-  email: string;
-  total_seconds: number;
-  languages: { name: string }[] | null;
-  operating_systems: { name: string }[] | null;
-  editors: { name: string }[] | null;
-};
 
 function LeaderboardStats({ members }: { members: Member[] }) {
   const totalHours = Math.round(
@@ -114,6 +106,7 @@ export default function LeaderboardTable({
     .map((member, index) => ({
       user_id: member.user_id,
       rank: index + 1,
+      name: member.name,
       email: member.email,
       hours: Math.round((member.total_seconds || 0) / 3600),
       role: member.role,
@@ -200,7 +193,7 @@ export default function LeaderboardTable({
       ) : (
         <div className="glass-card overflow-hidden">
           {/* Header Row (Desktop) */}
-          <div className="hidden md:flex items-center px-4 sm:px-6 py-4 border-b border-white/5 bg-white/[0.01] text-[10px] font-bold text-gray-500 uppercase tracking-widest">
+          <div className="hidden md:flex items-center px-4 sm:px-6 py-4 border-b border-white/5 bg-white/1 text-[10px] font-bold text-gray-500 uppercase tracking-widest">
             <div className="w-12 shrink-0 text-center">Rank</div>
             <div className="flex-1 ml-4">Developer</div>
             <div className="w-48 lg:w-72 xl:w-80">Tech Stack</div>
@@ -219,16 +212,16 @@ export default function LeaderboardTable({
                 <div
                   key={user.user_id}
                   className={`group relative flex flex-col md:flex-row items-start md:items-center px-4 sm:px-6 py-4 md:py-4 transition-colors hover:bg-white/[0.02] ${
-                    isCurrentUser ? "bg-indigo-500/[0.02]" : "bg-transparent"
+                    isCurrentUser ? "bg-indigo-500/2" : "bg-transparent"
                   }`}
                 >
                   {/* Background Progress Bar */}
                   <div 
-                    className="absolute left-0 bottom-0 h-[1px] bg-gradient-to-r from-indigo-500/50 to-transparent" 
+                    className="absolute left-0 bottom-0 h-px bg-linear-to-r from-indigo-500/50 to-transparent" 
                     style={{ width: `${pct}%` }} 
                   />
                   {isCurrentUser && (
-                    <div className="absolute left-0 top-0 bottom-0 w-[2px] bg-indigo-500" />
+                    <div className="absolute left-0 top-0 bottom-0 w-0.5 bg-indigo-500" />
                   )}
 
                   {/* MOBILE TOP ROW / DESKTOP LEFT FLEX */}
@@ -242,13 +235,13 @@ export default function LeaderboardTable({
 
                     {/* Profile + Badges */}
                     <div className="flex-1 ml-3 sm:ml-4 min-w-0 flex items-center gap-3">
-                      <div className="w-8 h-8 sm:w-10 sm:h-10 shrink-0 rounded-lg bg-gradient-to-br from-white/5 to-white/10 border border-white/10 flex items-center justify-center text-[10px] sm:text-sm font-semibold text-gray-300 shadow-sm uppercase">
-                        {user.email.charAt(0)}
+                      <div className="w-8 h-8 sm:w-10 sm:h-10 shrink-0 rounded-lg bg-linear-to-br from-white/5 to-white/10 border border-white/10 flex items-center justify-center text-[10px] sm:text-sm font-semibold text-gray-300 shadow-sm uppercase">
+                        {user.name ? user.name.charAt(0) : user.email.charAt(0)}
                       </div>
                       <div className="flex flex-col min-w-0 gap-1 sm:gap-1.5">
                         <div className="flex items-center gap-2">
-                          <p className="font-semibold text-gray-200 tracking-tight text-sm sm:text-[15px] truncate max-w-[120px] xs:max-w-[160px] sm:max-w-[180px] lg:max-w-[200px] leading-none">
-                            {user.email.split("@")[0]}
+                          <p className="font-semibold text-gray-200 tracking-tight text-sm sm:text-[15px] truncate max-w-30 xs:max-w-[160px] sm:max-w-45 lg:max-w-50 leading-none">
+                            {user.name ?? user.email.split("@")[0]}
                           </p>
                           {isCurrentUser && (
                             <span className="px-1.5 py-0.5 rounded border border-indigo-500/30 bg-indigo-500/10 text-indigo-400 text-[8px] sm:text-[9px] uppercase font-bold tracking-widest leading-none">
@@ -275,12 +268,12 @@ export default function LeaderboardTable({
                   </div>
 
                   {/* MOBILE BOTTOM STACK / DESKTOP RIGHT ROW */}
-                  <div className="flex flex-col md:flex-row items-start md:items-center w-full md:w-auto mt-4 md:mt-0 pl-[2.75rem] sm:pl-[4.25rem] md:pl-0 gap-2.5 md:gap-0">
+                  <div className="flex flex-col md:flex-row items-start md:items-center w-full md:w-auto mt-4 md:mt-0 pl-11 sm:pl-17 md:pl-0 gap-2.5 md:gap-0">
                     {/* Tech Stack */}
                     <div className="flex flex-wrap items-center gap-1.5 w-full md:w-48 lg:w-72 xl:w-80 md:shrink-0 md:pr-4">
                       {user.languages.length > 0 ? (
                         user.languages.map((lang, i) => (
-                          <span key={i} className="px-1.5 sm:px-2 py-0.5 sm:py-1 rounded bg-white/[0.03] border border-white/5 text-[9px] sm:text-[10px] text-gray-300 font-medium tracking-wide truncate max-w-[70px] sm:max-w-[80px]">
+                          <span key={i} className="px-1.5 sm:px-2 py-0.5 sm:py-1 rounded bg-white/3 border border-white/5 text-[9px] sm:text-[10px] text-gray-300 font-medium tracking-wide truncate max-w-[70px] sm:max-w-[80px]">
                             {lang}
                           </span>
                         ))
@@ -292,15 +285,15 @@ export default function LeaderboardTable({
                     {/* Environment */}
                     <div className="flex items-center gap-1.5 sm:gap-2 w-full md:w-32 lg:w-48 md:shrink-0">
                       {user.editor !== "N/A" && (
-                        <span className="text-[10px] sm:text-[11px] text-gray-400 font-medium truncate max-w-[70px] lg:max-w-[90px]">
+                        <span className="text-[10px] sm:text-[11px] text-gray-400 font-medium truncate max-w-17.5 lg:max-w-22.5">
                           {user.editor}
                         </span>
                       )}
                       {user.editor !== "N/A" && user.os !== "N/A" && (
-                        <span className="w-[3px] h-[3px] rounded-full bg-gray-600 shrink-0"></span>
+                        <span className="w-0.75 h-0.75 rounded-full bg-gray-600 shrink-0"></span>
                       )}
                       {user.os !== "N/A" && (
-                        <span className="text-[10px] sm:text-[11px] text-gray-400 font-medium truncate max-w-[70px] lg:max-w-[90px]">
+                        <span className="text-[10px] sm:text-[11px] text-gray-400 font-medium truncate max-w-17.5 lg:max-w-22.5">
                           {user.os}
                         </span>
                       )}
